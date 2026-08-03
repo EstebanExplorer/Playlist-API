@@ -1,0 +1,15 @@
+# Crear el archivo .gitignore (ejemplo base para Spring Boot y Java)
+cat <<EOT >> .gitignore
+# Compilados
+target/
+*.class
+
+# IDEs
+.idea/
+*.iml
+.vscode/
+
+# SO
+.DS_Store
+Thumbs.db
+EOT

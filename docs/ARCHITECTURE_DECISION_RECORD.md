@@ -340,7 +340,3 @@ Las siguientes decisiones serán tomadas durante las siguientes fases del proyec
 - Organización final de paquetes.
 
 ---
-
-# 10. Próxima Etapa
-
-Una vez definidas las decisiones arquitectónicas, el siguiente paso será elaborar el **Blueprint del Sistema**, donde se representarán los componentes principales y sus relaciones sin entrar aún en el diseño de clases o implementación.

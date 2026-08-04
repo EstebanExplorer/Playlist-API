@@ -18,6 +18,8 @@ public interface PlaylistRepository {
 
     List<Playlist> findByUserId(UUID userId);
 
+    void delete(Playlist playlist);
+
     void deleteById(UUID id);
 
     boolean existsById(UUID id);

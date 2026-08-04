@@ -228,15 +228,20 @@ El servidor iniciará exitosamente en `http://localhost:8080`.
 
 La configuración utiliza `${NOMBRE_VARIABLE:valor_por_defecto}` en `application.yml`, lo que permite ejecutar la aplicación sin configuración previa en modo desarrollo/pruebas o inyectar credenciales reales en producción:
 
-| Variable de Entorno | Descripción | Obligatoria | Valor por Defecto / Ejemplo |
+| Variable de Entorno | Descripción | Obligatoria | Valor por Defecto / Placeholder |
 | :--- | :--- | :--- | :--- |
 | `SERVER_PORT` | Puerto HTTP del servidor Spring Boot | No | `8080` |
-| `JWT_SECRET` | Clave secreta Base64/Hex para firma de tokens JWT | Sí (en prod) | `9a8b7c6d5e4f3a2b1c0d9e8f7a6b5c4d...` |
+| `JWT_SECRET` | Clave secreta para firma de tokens JWT (HS256, mín. 256 bits / 32 bytes) | **Sí (en prod)** | `PLEASE_OVERRIDE_IN_PRODUCTION_WITH_A_SECRET_KEY_OF_AT_LEAST_256_BITS_OR_32_BYTES` |
 | `JWT_EXPIRATION` | Tiempo de expiración del token JWT en milisegundos | No | `86400000` (24 horas) |
 | `SPOTIFY_CLIENT_ID` | Client ID obtenido en Spotify Developer Dashboard | Sí (para Spotify real) | `test-client-id` |
 | `SPOTIFY_CLIENT_SECRET` | Client Secret obtenido en Spotify Developer Dashboard | Sí (para Spotify real) | `test-client-secret` |
 | `SPOTIFY_TOKEN_URL` | URL del endpoint de autenticación OAuth2 de Spotify | No | `https://accounts.spotify.com/api/token` |
 | `SPOTIFY_API_URL` | URL base de la Spotify Web API v1 | No | `https://api.spotify.com/v1` |
+
+> **Nota de Seguridad JWT**:
+> 1. `JWT_SECRET` **debe ser reemplazada obligatoriamente en entornos productivos**.
+> 2. El algoritmo de firma HS256 exige una clave con entropía mínima de **256 bits (32 bytes)**.
+> 3. El valor configurado por defecto en el repositorio es estrictamente un *placeholder* descriptivo y nunca debe emplearse en producción.
 
 ---
 

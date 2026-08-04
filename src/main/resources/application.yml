@@ -8,7 +8,7 @@ spring:
     password: 
   h2:
     console:
-      enabled: true
+      enabled: ${H2_CONSOLE_ENABLED:true}
       path: /h2-console
   jpa:
     database-platform: org.hibernate.dialect.H2Dialect
@@ -17,9 +17,9 @@ spring:
     show-sql: false
 
 jwt:
-  secret: ${JWT_SECRET:9a8b7c6d5e4f3a2b1c0d9e8f7a6b5c4d3e2f1a0b9c8d7e6f5a4b3c2d1e0f9a8b}
-  expiration: 86400000
-  issuer: PlaylistAPI
+  secret: ${JWT_SECRET:PLEASE_OVERRIDE_IN_PRODUCTION_WITH_A_SECRET_KEY_OF_AT_LEAST_256_BITS_OR_32_BYTES}
+  expiration: ${JWT_EXPIRATION:86400000}
+  issuer: ${JWT_ISSUER:PlaylistAPI}
 
 spotify:
   client-id: ${SPOTIFY_CLIENT_ID:test-client-id}

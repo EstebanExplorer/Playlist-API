@@ -12,6 +12,11 @@ target/
 *.project
 .settings/
 
+# Archivos de Entorno y Secretos
+.env
+.env.*
+!.env.example
+
 # Sistema Operativo
 .DS_Store
 Thumbs.db

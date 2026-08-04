@@ -1,0 +1,21 @@
+# Compilados y Build Tools
+target/
+*.class
+.tools/
+.mvn/
+
+# IDEs y Editores
+.idea/
+*.iml
+.vscode/
+*.classpath
+*.project
+.settings/
+
+# Sistema Operativo
+.DS_Store
+Thumbs.db
+
+# Logs y Archivos Temporales
+*.log
+*.tmp

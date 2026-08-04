@@ -20,4 +20,8 @@ public record UpdatePlaylistNameCommand(
             throw new InvalidCommandException("El nuevo nombre de la playlist no puede estar vacío.");
         }
     }
+
+    public UpdatePlaylistNameCommand(UUID playlistId, String newName, UUID userId) {
+        this(playlistId, newName);
+    }
 }

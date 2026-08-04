@@ -56,7 +56,7 @@ class AuthIntegrationTest {
     void setUp() {
         rawPassword = "Password123!";
         String encodedPassword = passwordEncoder.encode(rawPassword);
-        testUser = User.create("esteban@example.com", encodedPassword, "Esteban Henao");
+        testUser = User.create("Esteban Henao", "esteban@example.com", encodedPassword);
     }
 
     @Nested

@@ -69,7 +69,7 @@ class JpaPlaylistRepositoryAdapterTest {
 
             // Verificación del orden exacto con InOrder
             InOrder inOrder = inOrder(mapper, jpaRepository);
-            inOrder.verify(mapper).toEntity(mockPlaylist);
+            inOrder.verify(mapper, times(2)).toEntity(mockPlaylist);
             inOrder.verify(jpaRepository).save(any(PlaylistJpaEntity.class));
             inOrder.verify(mapper).toDomain(any(PlaylistJpaEntity.class));
             inOrder.verifyNoMoreInteractions();

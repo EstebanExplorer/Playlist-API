@@ -38,8 +38,8 @@ public class BeanConfiguration {
     }
 
     @Bean
-    public CreatePlaylistUseCase createPlaylistUseCase(PlaylistRepository playlistRepository) {
-        return new CreatePlaylistUseCase(playlistRepository);
+    public CreatePlaylistUseCase createPlaylistUseCase(PlaylistRepository playlistRepository, UserRepository userRepository) {
+        return new CreatePlaylistUseCase(playlistRepository, userRepository);
     }
 
     @Bean
@@ -53,8 +53,8 @@ public class BeanConfiguration {
     }
 
     @Bean
-    public UpdatePlaylistNameUseCase updatePlaylistNameUseCase(PlaylistRepository playlistRepository) {
-        return new UpdatePlaylistNameUseCase(playlistRepository);
+    public UpdatePlaylistNameUseCase updatePlaylistNameUseCase(PlaylistRepository playlistRepository, PlaylistDomainService playlistDomainService) {
+        return new UpdatePlaylistNameUseCase(playlistRepository, playlistDomainService);
     }
 
     @Bean
@@ -94,7 +94,7 @@ public class BeanConfiguration {
     }
 
     @Bean
-    public RecommendationDomainService recommendationDomainService() {
-        return new RecommendationDomainService();
+    public RecommendationDomainService recommendationDomainService(AiRecommendationPort aiRecommendationPort) {
+        return new RecommendationDomainService(aiRecommendationPort);
     }
 }

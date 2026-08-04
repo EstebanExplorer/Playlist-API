@@ -107,7 +107,7 @@ class GlobalExceptionHandlerTest {
                     .andExpect(status().isConflict())
                     .andExpect(jsonPath("$.status").value(409))
                     .andExpect(jsonPath("$.error").value("Conflict"))
-                    .andExpect(jsonPath("$.message").value("La canción ya se encuentra en la playlist"))
+                    .andExpect(jsonPath("$.message").value("La canción 'La canción ya se encuentra en la playlist' ya existe en esta playlist."))
                     .andExpect(jsonPath("$.path").value("/test/duplicate-song"))
                     .andExpect(jsonPath("$.timestamp").exists());
         }

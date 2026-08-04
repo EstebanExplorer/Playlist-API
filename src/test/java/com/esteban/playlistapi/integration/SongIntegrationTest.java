@@ -27,6 +27,7 @@ import java.util.Optional;
 import java.util.UUID;
 
 import static org.junit.jupiter.api.Assertions.*;
+import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.anyInt;
 import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.Mockito.when;
@@ -61,6 +62,9 @@ class SongIntegrationTest {
     @BeforeEach
     void setUp() {
         testSong = Song.create("spotify-001", "Stairway to Heaven", "Led Zeppelin", "Led Zeppelin IV", 482);
+        com.esteban.playlistapi.domain.model.User mockUser = new com.esteban.playlistapi.domain.model.User(
+                UUID.fromString("11111111-1111-1111-1111-111111111111"), "defaultuser", "default@example.com", "password");
+        when(userRepository.findById(any())).thenReturn(Optional.of(mockUser));
     }
 
     @Nested

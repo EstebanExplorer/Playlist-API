@@ -36,7 +36,7 @@ class JwtTokenProviderAdapterTest {
         jwtProperties.setIssuer(issuer);
 
         adapter = new JwtTokenProviderAdapter(jwtProperties);
-        mockUser = User.create("esteban@example.com", "HashedPassword123!", "Esteban");
+        mockUser = User.create("Esteban", "esteban@example.com", "HashedPassword123!");
     }
 
     @Nested

@@ -11,4 +11,8 @@ public class InvalidCredentialsException extends ApplicationException {
     public InvalidCredentialsException() {
         super("Nombre de usuario o contraseña incorrectos.");
     }
+
+    public InvalidCredentialsException(String message) {
+        super(message);
+    }
 }

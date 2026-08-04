@@ -16,4 +16,8 @@ public record DeletePlaylistCommand(
             throw new InvalidCommandException("El ID de la playlist no puede ser nulo.");
         }
     }
+
+    public DeletePlaylistCommand(UUID playlistId, UUID userId) {
+        this(playlistId);
+    }
 }

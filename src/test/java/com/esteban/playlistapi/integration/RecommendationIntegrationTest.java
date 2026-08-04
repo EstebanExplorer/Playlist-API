@@ -50,6 +50,13 @@ class RecommendationIntegrationTest {
     @MockBean
     private AiRecommendationPort aiRecommendationPort;
 
+    @org.junit.jupiter.api.BeforeEach
+    void setUp() {
+        com.esteban.playlistapi.domain.model.User mockUser = new com.esteban.playlistapi.domain.model.User(
+                UUID.fromString("11111111-1111-1111-1111-111111111111"), "defaultuser", "default@example.com", "password");
+        when(userRepository.findById(any())).thenReturn(java.util.Optional.of(mockUser));
+    }
+
     @Nested
     @DisplayName("UC-010: Integración Recomendaciones IA (POST /api/v1/playlists/{id}/recommendations)")
     class GenerateRecommendationIntegrationTests {
@@ -67,13 +74,13 @@ class RecommendationIntegrationTest {
             String playlistIdStr = objectMapper.readTree(createResult.getResponse().getContentAsString()).get("id").asText();
             UUID playlistId = UUID.fromString(playlistIdStr);
 
-            Recommendation mockRecommendation = Recommendation.create(
-                    playlistId,
-                    List.of("Kashmir - Led Zeppelin", "Sweet Child O' Mine - Guns N' Roses")
+            List<Recommendation> mockRecommendations = List.of(
+                    Recommendation.create("Kashmir", "Led Zeppelin", "Similitud de estilo", 0.95),
+                    Recommendation.create("Sweet Child O' Mine", "Guns N' Roses", "Similitud de estilo", 0.90)
             );
 
             when(aiRecommendationPort.generateRecommendations(any(Playlist.class), anyInt()))
-                    .thenReturn(mockRecommendation);
+                    .thenReturn(mockRecommendations);
 
             // Act & Assert
             GenerateRecommendationRequest request = new GenerateRecommendationRequest(5);
@@ -83,7 +90,7 @@ class RecommendationIntegrationTest {
                     .andExpect(status().isOk())
                     .andExpect(jsonPath("$.playlistId").value(playlistIdStr))
                     .andExpect(jsonPath("$.recommendations").isArray())
-                    .andExpect(jsonPath("$.recommendations[0]").value("Kashmir - Led Zeppelin"));
+                    .andExpect(jsonPath("$.recommendations[0]").value("Led Zeppelin - Kashmir"));
         }
     }
 }

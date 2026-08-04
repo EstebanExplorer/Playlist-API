@@ -20,4 +20,8 @@ public record RemoveSongCommand(
             throw new InvalidCommandException("El ID de la canción no puede ser nulo.");
         }
     }
+
+    public RemoveSongCommand(UUID playlistId, UUID songId, UUID userId) {
+        this(playlistId, songId);
+    }
 }

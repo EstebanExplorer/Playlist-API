@@ -16,4 +16,8 @@ public record GetPlaylistByIdQuery(
             throw new InvalidQueryException("El ID de la playlist no puede ser nulo.");
         }
     }
+
+    public GetPlaylistByIdQuery(UUID playlistId, UUID userId) {
+        this(playlistId);
+    }
 }

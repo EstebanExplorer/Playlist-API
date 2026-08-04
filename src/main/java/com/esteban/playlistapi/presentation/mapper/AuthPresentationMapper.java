@@ -24,6 +24,6 @@ public class AuthPresentationMapper {
 
     public AuthResponse toResponse(AuthenticationResult result) {
         Objects.requireNonNull(result, "result no puede ser nulo");
-        return AuthResponse.bearer(result.accessToken(), result.expiresInSeconds());
+        return AuthResponse.bearer(result.accessToken(), result.expiresIn());
     }
 }

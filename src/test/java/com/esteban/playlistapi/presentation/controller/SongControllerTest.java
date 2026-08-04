@@ -174,7 +174,7 @@ class SongControllerTest {
             RemoveSongCommand command = new RemoveSongCommand(playlistId, songId, userId);
 
             when(songPresentationMapper.toRemoveSongCommand(eq(playlistId), eq(songId), eq(userId))).thenReturn(command);
-            doNothing().when(removeSongFromPlaylistUseCase).execute(any(RemoveSongCommand.class));
+            when(removeSongFromPlaylistUseCase.execute(any(RemoveSongCommand.class))).thenReturn(mockPlaylistResult);
 
             // Act & Assert
             mockMvc.perform(delete("/api/v1/playlists/{playlistId}/songs/{songId}", playlistId, songId))

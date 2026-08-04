@@ -9,11 +9,17 @@ import java.util.UUID;
  * Implementado como un Record Java 21 inmutable.
  */
 public record GenerateRecommendationCommand(
-        UUID playlistId
+        UUID playlistId,
+        Integer limit,
+        UUID userId
 ) {
     public GenerateRecommendationCommand {
         if (playlistId == null) {
             throw new InvalidCommandException("El ID de la playlist no puede ser nulo.");
         }
+    }
+
+    public GenerateRecommendationCommand(UUID playlistId) {
+        this(playlistId, 5, null);
     }
 }

@@ -94,7 +94,7 @@ class ListUserPlaylistsUseCaseTest {
             // Arrange
             ListUserPlaylistsQuery query = new ListUserPlaylistsQuery(userId);
             when(playlistRepository.findByUserId(userId)).thenReturn(List.of(mockPlaylist1));
-            PlaylistResult dummyResult = new PlaylistResult(UUID.randomUUID(), "Nueva", userId, 0, LocalDateTime.now(), LocalDateTime.now());
+            PlaylistResult dummyResult = new PlaylistResult(UUID.randomUUID(), "Nueva", userId, 0, Collections.emptyList(), LocalDateTime.now(), LocalDateTime.now());
 
             // Act
             List<PlaylistResult> results = useCase.execute(query);

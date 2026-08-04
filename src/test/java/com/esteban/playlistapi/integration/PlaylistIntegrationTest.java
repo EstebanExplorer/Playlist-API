@@ -49,6 +49,13 @@ class PlaylistIntegrationTest {
     @MockBean
     private AiRecommendationPort aiRecommendationPort;
 
+    @org.junit.jupiter.api.BeforeEach
+    void setUp() {
+        com.esteban.playlistapi.domain.model.User mockUser = new com.esteban.playlistapi.domain.model.User(
+                java.util.UUID.fromString("11111111-1111-1111-1111-111111111111"), "defaultuser", "default@example.com", "password");
+        org.mockito.Mockito.when(userRepository.findById(org.mockito.ArgumentMatchers.any())).thenReturn(java.util.Optional.of(mockUser));
+    }
+
     @Nested
     @DisplayName("UC-002: Integración Crear Playlist (POST /api/v1/playlists)")
     class CreatePlaylistIntegrationTests {

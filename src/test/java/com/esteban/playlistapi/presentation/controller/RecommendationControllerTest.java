@@ -58,7 +58,7 @@ class RecommendationControllerTest {
         mockResult = new RecommendationResult(
                 playlistId,
                 List.of("Bohemian Rhapsody - Queen", "Hotel California - Eagles"),
-                LocalDateTime.now()
+                java.time.Instant.now()
         );
 
         mockResponse = new RecommendationResponse(

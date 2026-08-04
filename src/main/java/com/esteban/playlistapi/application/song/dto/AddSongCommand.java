@@ -20,4 +20,8 @@ public record AddSongCommand(
             throw new InvalidCommandException("El ID de la canción no puede estar vacío.");
         }
     }
+
+    public AddSongCommand(UUID playlistId, String songId, UUID userId) {
+        this(playlistId, songId);
+    }
 }

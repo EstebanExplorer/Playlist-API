@@ -13,4 +13,8 @@ public interface MusicCatalogPort {
     Optional<Song> getSongBySpotifyId(String spotifyId);
 
     List<Song> searchSongs(String query);
+
+    default List<Song> searchSongs(String query, int limit) {
+        return searchSongs(query);
+    }
 }

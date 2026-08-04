@@ -3,10 +3,18 @@ package com.esteban.playlistapi.presentation.controller;
 import com.esteban.playlistapi.application.auth.dto.AuthenticateUserCommand;
 import com.esteban.playlistapi.application.auth.dto.AuthenticationResult;
 import com.esteban.playlistapi.application.auth.usecase.AuthenticateUserUseCase;
+import com.esteban.playlistapi.presentation.dto.error.ApiErrorResponse;
 import com.esteban.playlistapi.presentation.dto.request.LoginRequest;
 import com.esteban.playlistapi.presentation.dto.response.AuthResponse;
 import com.esteban.playlistapi.presentation.mapper.AuthPresentationMapper;
 
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.media.Content;
+import io.swagger.v3.oas.annotations.media.Schema;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import io.swagger.v3.oas.annotations.responses.ApiResponses;
+import io.swagger.v3.oas.annotations.security.SecurityRequirements;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -18,33 +26,11 @@ import java.util.Objects;
 
 /**
  * Controlador REST para la gestión de autenticación e identidad de usuarios (UC-001).
- * <p>
- * Rol Arquitectónico:
- * Actúa estrictamente como un Adaptador de Entrada (Inbound Adapter) en la Arquitectura Hexagonal y Clean Architecture.
- * Implementa el patrón Thin Controller.
- * <p>
- * Responsabilidad Exclusiva:
- * Orquestar el flujo unidireccional de datos en la frontera HTTP sin tomar ninguna decisión de negocio.
- * <p>
- * Pipeline de Procesamiento:
- * HTTP Request
- *      ↓
- * Jakarta Bean Validation (@Valid)
- *      ↓
- * Presentation Mapper (LoginRequest -> AuthenticateUserCommand)
- *      ↓
- * Application Layer (AuthenticateUserUseCase.execute)
- *      ↓
- * Presentation Mapper (AuthenticationResult -> AuthResponse)
- *      ↓
- * HTTP Response (200 OK + AuthResponse JSON)
- * <p>
- * Aislamiento:
- * No conoce ni importa clases del Dominio (Domain) ni de Infraestructura (Infrastructure).
- * Delegación total a la capa Application mediante Mappers.
+ * Actúa exclusivamente como un Adaptador de Entrada (Inbound Adapter) en la Arquitectura Hexagonal.
  */
 @RestController
 @RequestMapping("/api/v1/auth")
+@Tag(name = "Autenticación", description = "Endpoints para inicio de sesión e identidad de usuarios (UC-001)")
 public class AuthController {
 
     private final AuthenticateUserUseCase authenticateUserUseCase;
@@ -57,6 +43,18 @@ public class AuthController {
     }
 
     @PostMapping("/login")
+    @SecurityRequirements // Endpoint público sin requesito de JWT
+    @Operation(summary = "Iniciar sesión de usuario", description = "Autentica al usuario mediante email y contraseña, retornando un token JWT de acceso válido por 24 horas.")
+    @ApiResponses({
+            @ApiResponse(responseCode = "200", description = "Autenticación exitosa",
+                    content = @Content(schema = @Schema(implementation = AuthResponse.class))),
+            @ApiResponse(responseCode = "400", description = "Solicitud inválida o campos malformados",
+                    content = @Content(schema = @Schema(implementation = ApiErrorResponse.class))),
+            @ApiResponse(responseCode = "401", description = "Credenciales inválidas (Email o contraseña errónea)",
+                    content = @Content(schema = @Schema(implementation = ApiErrorResponse.class))),
+            @ApiResponse(responseCode = "500", description = "Error interno del servidor",
+                    content = @Content(schema = @Schema(implementation = ApiErrorResponse.class)))
+    })
     public ResponseEntity<AuthResponse> login(@Valid @RequestBody LoginRequest request) {
         AuthenticateUserCommand command = authPresentationMapper.toCommand(request);
         AuthenticationResult result = authenticateUserUseCase.execute(command);

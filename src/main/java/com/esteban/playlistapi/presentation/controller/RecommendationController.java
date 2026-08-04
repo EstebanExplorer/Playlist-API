@@ -43,7 +43,7 @@ public class RecommendationController {
     }
 
     @PostMapping("/{playlistId}/recommendations")
-    @Operation(summary = "Generar recomendaciones con IA", description = "Solicita al proveedor de Inteligencia Artificial (Gemini / OpenAI) recomendaciones de canciones personalizadas basadas en el contenido de la playlist (UC-010).")
+    @Operation(summary = "Generar recomendaciones con IA", description = "Solicita recomendaciones de canciones personalizadas basadas en el contenido de la playlist (UC-010).")
     @ApiResponses({
             @ApiResponse(responseCode = "200", description = "Recomendaciones generadas exitosamente",
                     content = @Content(schema = @Schema(implementation = RecommendationResponse.class))),
@@ -55,7 +55,7 @@ public class RecommendationController {
                     content = @Content(schema = @Schema(implementation = ApiErrorResponse.class))),
             @ApiResponse(responseCode = "404", description = "Playlist no encontrada",
                     content = @Content(schema = @Schema(implementation = ApiErrorResponse.class))),
-            @ApiResponse(responseCode = "502", description = "Error en comunicación con el servicio de Inteligencia Artificial",
+            @ApiResponse(responseCode = "502", description = "Error en comunicación con el servicio de recomendaciones",
                     content = @Content(schema = @Schema(implementation = ApiErrorResponse.class))),
             @ApiResponse(responseCode = "500", description = "Error interno del servidor",
                     content = @Content(schema = @Schema(implementation = ApiErrorResponse.class)))

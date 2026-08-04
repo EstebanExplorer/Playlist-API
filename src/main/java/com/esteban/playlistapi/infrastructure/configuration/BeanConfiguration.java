@@ -89,6 +89,13 @@ public class BeanConfiguration {
     }
 
     @Bean
+    public com.esteban.playlistapi.application.recommendation.usecase.GeneratePlaylistRecommendationsUseCase generatePlaylistRecommendationsUseCase(
+            PlaylistRepository playlistRepository,
+            com.esteban.playlistapi.domain.repository.RecommendationEnginePort recommendationEnginePort) {
+        return new com.esteban.playlistapi.application.recommendation.usecase.GeneratePlaylistRecommendationsUseCase(playlistRepository, recommendationEnginePort);
+    }
+
+    @Bean
     public PlaylistDomainService playlistDomainService() {
         return new PlaylistDomainService();
     }

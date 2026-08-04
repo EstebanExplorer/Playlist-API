@@ -1,36 +1,22 @@
 spring:
   application:
     name: playlist-api
-  profiles:
-    active: ${SPRING_PROFILES_ACTIVE:dev}
-  messages:
-    basename: messages
-    encoding: UTF-8
-
-server:
-  port: ${PORT:8080}
-  servlet:
-    context-path: /api/v1
-
-springdoc:
-  api-docs:
-    path: /v3/api-docs
-  swagger-ui:
-    path: /swagger-ui.html
-    operationsSorter: method
+  datasource:
+    url: jdbc:h2:mem:playlistdb;DB_CLOSE_DELAY=-1;DB_CLOSE_ON_EXIT=FALSE
+    driver-class-name: org.h2.Driver
+    username: sa
+    password: 
+  h2:
+    console:
+      enabled: true
+      path: /h2-console
+  jpa:
+    database-platform: org.hibernate.dialect.H2Dialect
+    hibernate:
+      ddl-auto: update
+    show-sql: false
 
 jwt:
   secret: ${JWT_SECRET:9a8b7c6d5e4f3a2b1c0d9e8f7a6b5c4d3e2f1a0b9c8d7e6f5a4b3c2d1e0f9a8b}
-  expiration-ms: ${JWT_EXPIRATION_MS:86400000} # 24 horas
-
-spotify:
-  client-id: ${SPOTIFY_CLIENT_ID:mock_spotify_client_id}
-  client-secret: ${SPOTIFY_CLIENT_SECRET:mock_spotify_client_secret}
-  base-url: ${SPOTIFY_BASE_URL:https://api.spotify.com/v1}
-  auth-url: ${SPOTIFY_AUTH_URL:https://accounts.spotify.com/api/token}
-
-ai:
-  provider: ${AI_PROVIDER:openai}
-  api-key: ${AI_API_KEY:mock_ai_api_key}
-  base-url: ${AI_BASE_URL:https://api.openai.com/v1}
-  model: ${AI_MODEL:gpt-3.5-turbo}
+  expiration: 86400000
+  issuer: PlaylistAPI

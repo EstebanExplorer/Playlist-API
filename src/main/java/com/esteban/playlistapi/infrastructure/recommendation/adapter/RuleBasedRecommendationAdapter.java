@@ -7,20 +7,21 @@ import com.esteban.playlistapi.domain.repository.AiRecommendationPort;
 import com.esteban.playlistapi.domain.repository.MusicCatalogPort;
 import com.esteban.playlistapi.domain.repository.RecommendationEnginePort;
 
-import org.springframework.context.annotation.Primary;
 import org.springframework.stereotype.Component;
 
 import java.util.*;
 import java.util.stream.Collectors;
 
 /**
- * Adaptador de Infraestructura que implementa el puerto RecommendationEnginePort.
- * Calcula recomendaciones de canciones basadas en reglas de negocio utilizando el catálogo externo de Spotify (MusicCatalogPort).
- * Anotado como @Primary para ser la implementación por defecto en el contenedor IoC.
+ * Adaptador de Infraestructura que implementa {@link RecommendationEnginePort} y {@link com.esteban.playlistapi.domain.repository.AiRecommendationPort}.
+ * Calcula recomendaciones de canciones basadas en reglas de negocio utilizando el catálogo externo de Spotify ({@link MusicCatalogPort}).
+ *
+ * <p>Este adaptador actúa como mecanismo de <strong>fallback</strong> en el {@code HybridRecommendationAdapter}.
+ * Cuando Google Gemini no está disponible, falla o retorna lista vacía, este adaptador garantiza
+ * que el usuario siempre recibe recomendaciones sin error.
  */
 @Component
-@Primary
-public class RuleBasedRecommendationAdapter implements RecommendationEnginePort, AiRecommendationPort {
+public class RuleBasedRecommendationAdapter implements RecommendationEnginePort {
 
     private final MusicCatalogPort musicCatalogPort;
 

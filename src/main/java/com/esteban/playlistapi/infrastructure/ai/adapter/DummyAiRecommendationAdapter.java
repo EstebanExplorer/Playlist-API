@@ -12,7 +12,6 @@ import java.util.List;
  * Adaptador de prueba/fallback para el puerto AiRecommendationPort.
  * Pertenece a la capa Infrastructure.
  */
-@Component
 public class DummyAiRecommendationAdapter implements AiRecommendationPort {
 
     @Override

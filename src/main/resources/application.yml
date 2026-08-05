@@ -26,3 +26,10 @@ spotify:
   client-secret: ${SPOTIFY_CLIENT_SECRET:test-client-secret}
   token-url: ${SPOTIFY_TOKEN_URL:https://accounts.spotify.com/api/token}
   api-url: ${SPOTIFY_API_URL:https://api.spotify.com/v1}
+
+gemini:
+  api-key: ${GEMINI_API_KEY:PLACEHOLDER_CONFIGURE_GEMINI_API_KEY}
+  model: ${GEMINI_MODEL:gemini-2.5-flash}
+  api-url: ${GEMINI_API_URL:https://generativelanguage.googleapis.com/v1beta/models}
+  timeout-seconds: ${GEMINI_TIMEOUT_SECONDS:15}
+  max-retries: ${GEMINI_MAX_RETRIES:2}

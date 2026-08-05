@@ -163,24 +163,24 @@ La solución aplica los principios de la **Arquitectura Hexagonal (Puertos y Ada
 
 ```mermaid
 flowchart TD
-    A[Usuario / Cliente REST] -->|POST /api/v1/playlists/{id}/recommendations| B[RecommendationController]
-    B --> C[GeneratePlaylistRecommendationsUseCase]
-    C --> D[RecommendationEnginePort]
-    D --> E[HybridRecommendationAdapter]
+    A["Usuario / Cliente REST"] -->|"POST /api/v1/playlists/{playlistId}/recommendations"| B["RecommendationController"]
+    B --> C["GeneratePlaylistRecommendationsUseCase"]
+    C --> D["RecommendationEnginePort"]
+    D --> E["HybridRecommendationAdapter"]
     
-    E -->|1. Intenta generación con IA| F[GeminiRecommendationAdapter]
-    F -->|Consulta canciones candidatas| G[MusicCatalogPort / SpotifyClient]
-    F -->|Envía Prompt + Contexto| H[GeminiClient / Google Gemini API]
+    E -->|"1. Intenta generación con IA"| F["GeminiRecommendationAdapter"]
+    F -->|"Consulta canciones candidatas"| G["MusicCatalogPort / SpotifyClient"]
+    F -->|"Envía Prompt + Contexto"| H["GeminiClient / Google Gemini API"]
     
-    H -->|Respuesta JSON Válida| I[Retorna Recomendaciones IA]
-    I --> J[Respuesta HTTP 200 OK]
+    H -->|"Respuesta JSON Válida"| I["Retorna Recomendaciones IA"]
+    I --> J["Respuesta HTTP 200 OK"]
     
-    H -.->|2. Timeout / HTTP 429 / Error HTTP 5xx / JSON Malformado| K[Fallback Automático]
-    F -.->|Lista Vacía| K
+    H -.->|"2. Timeout / HTTP 429 / HTTP 5xx / JSON Malformado"| K["Fallback Automático"]
+    F -.->|"Lista Vacía"| K
     
-    K -->|Conmuta transparentemente| L[RuleBasedRecommendationAdapter]
-    L -->|Búsqueda por Artistas / Géneros| G
-    L --> M[Retorna Recomendaciones Basadas en Reglas]
+    K -->|"Conmuta transparentemente"| L["RuleBasedRecommendationAdapter"]
+    L -->|"Búsqueda por Artistas / Géneros"| G
+    L --> M["Retorna Recomendaciones Basadas en Reglas"]
     M --> J
 ```
 
